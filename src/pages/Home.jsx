@@ -42,7 +42,7 @@ const Card = ({ id, title, body }) => {
   return (
     <li className="p-6 lg:w-2/6 md:w-2/4 cursor-pointer">
       <Link to={`/post/${id}`}>
-        <article>
+        <article title={title}>
           <h2 className="font-bold text-xl mb-4">{title}</h2>
           <p className="text-neutral-700">{body}</p>
         </article>

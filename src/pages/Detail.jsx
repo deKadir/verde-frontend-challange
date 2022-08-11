@@ -42,6 +42,7 @@ const PostSection = () => {
     setResponse({});
     requests.deletePost(post.id).then(() => {
       dispatch(decreasePosts());
+      setPost({ title: '', body: '' });
       setResponse({ success: true, message: 'Post deleted!' });
     });
   };

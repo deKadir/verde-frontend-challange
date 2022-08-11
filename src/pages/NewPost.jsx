@@ -18,9 +18,11 @@ function NewPost() {
 
 export default NewPost;
 
+const postInit = { userId: 1, title: '', body: '' };
+
 const Content = () => {
-  const [post, setPost] = React.useState({ userId: 1, title: '', body: '' });
-  const [response, setResponse] = React.useState();
+  const [post, setPost] = React.useState();
+  const [response, setResponse] = React.useState(postInit);
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -29,8 +31,9 @@ const Content = () => {
 
   const createPost = () => {
     setResponse({});
-    requests.createPost(post).then((res) => {
+    requests.createPost(post).then(() => {
       setResponse({ success: true, message: 'Post published!' });
+      setPost(postInit);
       dispatch(increasePosts());
     });
   };
@@ -38,12 +41,14 @@ const Content = () => {
   return (
     <Main>
       <section className="lg:w-1/2 sm:w-100">
+        {/* Post Header */}
         <div className="flex justify-between mb-6">
           <Link to={'/'} className="flex items-center gap-4">
             <SvgArrowLeft className="" />
             <p className="font-bold text-lg">Posts</p>
           </Link>
         </div>
+        {/* Post */}
         <article className="flex flex-col">
           <label className="mb-4 font-bold text-xl">Title</label>
           <textarea
@@ -61,6 +66,7 @@ const Content = () => {
           />
         </article>
         <Response {...response} />
+        {/* Post actions */}
         <div className="flex justify-end gap-6">
           <Button onClick={createPost}>Publish</Button>
         </div>
